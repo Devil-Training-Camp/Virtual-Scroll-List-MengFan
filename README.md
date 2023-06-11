@@ -1,53 +1,49 @@
-# Visual-Scroll-List-MengFan
-开发一个通用虚拟列表组件
+# virtual-scroll-list-mengfan
 
-This template should help get you started developing with Vue 3 in Vite.
+一个基于Vue的虚拟列表组件，可同时加载大量数据。
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## 安装
 
-## Type Support for `.vue` Imports in TS
+通过 npm:
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```shell
+npm install virtual-scroll-list-mengfan --save
 ```
 
-### Compile and Hot-Reload for Development
+## 基本使用
 
-```sh
-npm run dev
+```html
+<template>
+    <VirtualList
+        :list-data="data"
+        :item-size="100"
+        v-slot="slotProps"
+    >
+        <div class="context">
+            {{ slotProps.item.value }}
+        </div>
+    </VirtualList>
+</template>
 ```
 
-### Type-Check, Compile and Minify for Production
+```javascript
+import VirtualList from 'vue-virtual-scroll-list'
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+ let d = [];
+  for (let i = 0; i < 1000; i++) {
+    d.push({ id: i, value: i });
+  }
+  
+  export default {
+    data() {
+      return {
+        data: d
+      };
+    },
+    components: {
+      VirtualList
+    }
+  };
+  </script>
 ```
